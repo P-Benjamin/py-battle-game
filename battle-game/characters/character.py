@@ -5,7 +5,7 @@ from gears.armor import Armor
 from gears.weapon import Weapon
 
 class Character:
-
+    type = "Human"
     def __init__(self,name:str,hp:int, weapon:Weapon, armor:Armor):
         self.name = name
         self.hp = hp
@@ -13,6 +13,7 @@ class Character:
         self.armor = armor
     
     def attack(self,other):
+        print(f"{self.name} ({self.type}) attaque avec {self.weapon.name} ({self.weapon.damage}) {other.name} ({other.type}) equipé de {other.armor.name} ({other.armor.defense})")
         other.hp -= self.weapon.damage - (self.weapon.damage * (other.armor.defense / 100))
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ class Arena:
         input("------------------")
 
     def fight(self) -> str:
-        while self.first_character.hp > 0 or self.second_character.hp > 0:
+        while self.first_character.hp > 0 and self.second_character.hp > 0:
             self.first_character.attack(self.second_character)
 
             self.displayResult()

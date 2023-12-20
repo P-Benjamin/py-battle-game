@@ -9,6 +9,7 @@ from character import Character
 
 
 class Wizard(Character):
+    type = "Wizard"
     def __init__(self,name,hp,weapon:Weapon,armor:Armor,mana,spell:Spell):
         Character(name,hp,weapon,armor)
         self.mana = mana
