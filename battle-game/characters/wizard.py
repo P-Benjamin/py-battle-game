@@ -5,21 +5,24 @@ from gears.armor import Armor
 from gears.weapon import Weapon
 from gears.spell import Spell
 
-from character import Character
+from characters.character import Character
 
 
 class Wizard(Character):
     type = "Wizard"
-    def __init__(self,name,hp,weapon:Weapon,armor:Armor,mana,spell:Spell):
-        Character(name,hp,weapon,armor)
+    def __init__(self,name,hp,weapon:Weapon,armor:Armor,mana:int,spell:Spell):
+        Character.__init__(self,name,hp,weapon,armor)
         self.mana = mana
         self.spell = spell
 
-    def attack(self, other, choice):
+    def attack(self, other):
+        choice = input("choice ( weapon/spell ) ->")
+        
         if choice == "weapon":
             super().attack(other)
-        if choice == "sort":
+            
+        if choice == "spell":
             other.hp -= self.spell.damage
-            self.mana -= self.sorts.mana
+            self.mana -= self.spell.mana
 
 
