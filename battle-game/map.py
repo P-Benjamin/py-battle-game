@@ -1,6 +1,8 @@
 import random
 from characters.character import Character
 from room import Room
+import time
+import os
 class Map:
 
     grid = [[0,0,0,0,0,0,0,0,0,0],
@@ -17,7 +19,35 @@ class Map:
     def __init__(self, player: Character):
         self.player = player
         self.generateMap()
+        self.Rules()
         self.EnterDonjon()
+
+    def Rules(self):
+        os.system('cls')
+        print("Vous allez entrer dans un donjon.")
+        print("Avant de commencer, une carte de ce donjon va s'afficher puis disparaitre rapidement.")
+        print("Sur cette carte :")
+        print(" - P : Vous représente")
+        print(" - X : Représente les salles où un monstre est présent")
+        print(" - B : Représente la salle ou le Boss du donjon est situé")
+        print("Votre but, tuer le Boss du donjon")
+        input ("Quand vous êtes prêt appuyez sur Entrée")
+        self.Count()
+    
+    def Count(self):
+        os.system('cls')
+        print("Prêt ?")
+        print("A la fin du décompte la carte va s'afficher")
+        print("3")
+        time.sleep(1)
+        print("2")
+        time.sleep(1)
+        print("1")
+        time.sleep(1)
+        self.displayMap()
+        time.sleep(1)
+        os.system('cls')
+
 
 
     def EnterDonjon(self):
@@ -28,12 +58,17 @@ class Map:
             print(" 3 - Allez en haut")
             print(" 4 - Allez en bas")
             choice = input()
+            os.system('cls')
             self.Move(choice)
-            self.displayMap()
+            self.displayMapWithoutMark()
         if(self.player.hp <= 0):
             print("Vous avez perdu")
+        if (not self.boss_alive):
+            print("Vous avez gagné")
+           
         
     def Move(self,direction):
+        self.player.hp -= self.player.hp * 0.02
         match int(direction):
             case 1 : self.MoveLeft()
             case 2 : self.MoveRight()
@@ -43,7 +78,7 @@ class Map:
 
     def generateMap(self):
         for row in self.grid:
-            number = random.randint(1,3)
+            number = random.randint(1,10)
             for i in range(0,number):
                 monster = random.randint(0,9)
                 row[monster] = 1
@@ -89,6 +124,24 @@ class Map:
             print(newmiddle)
             print(side)
 
+    def displayMapWithoutMark(self):
+        side = "|---|---|---|---|---|---|---|---|---|---|"
+        middle = "|   |   |   |   |   |   |   |   |   |   |"
+        newmiddle =""
+
+        print(side)
+        for row in self.grid:
+            newmiddle = middle
+            i = -2
+
+            for index,r in enumerate(row):
+                i += 4
+                if (r == 9):
+                    newmiddle = newmiddle[:i] + "P" + newmiddle[i +1:]
+
+            print(newmiddle)
+            print(side)
+
     def MoveUp(self):
         if(self.CheckNewPos(0,-1)):
             self.grid[self.pos_player['y']][self.pos_player['x']] = 0
@@ -120,10 +173,14 @@ class Map:
         if(self.pos_player['y'] + y <= 5 and self.pos_player['y'] + y >= 0 and self.pos_player['x'] + x <= 9 and self.pos_player['x'] + x >= 0 ):
             if(self.grid[self.pos_player['y'] + y][self.pos_player['x'] + x] == 1):
                 print("Mob in this room")
-                room = Room("mob",self.player)
+                room = Room("Mob",self.player)
+                room.fight()
             elif(self.grid[self.pos_player['y'] + y][self.pos_player['x'] + x] == 5):
                 print("Boss in this room")
-                self.boss_alive = False
+                room = Room("Boss",self.player)
+                win = room.fight()
+                if(win):
+                    self.boss_alive = False
             else:
                 print("Nothing in this room")
             return True

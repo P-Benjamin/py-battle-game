@@ -14,12 +14,18 @@ class Room(Arena):
     def __init__(self,type, player) -> None:
         self.type=type
         self.player = player
-        self.mob = self.GenerateMob()
+        if(self.type == "Mob"):
+            self.mob = self.GenerateMob()
+        if(self.type == "Boss"):
+            self.mob = self.GenerateMob()
         Arena.__init__(self,player,self.mob)
-        winner = self.fight()
-        if(winner == self.player.name):
-            self.player.hp += self.player.hp * 0.2
         
+        
+    def fight(self) -> bool:
+        winner =  super().fight()
+        if(winner == self.player.name):
+            self.player.hp += self.player.hp
+            return True
 
     def GenerateMob(self):
         monsterType =  random.randrange(0,len(monsters_type))
