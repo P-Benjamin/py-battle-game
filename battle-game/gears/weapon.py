@@ -1,9 +1,9 @@
 weapon_list = [
-    {"nom": "Épée", "puissance": 10},
-    {"nom": "Hache", "puissance": 15},
-    {"nom": "Arc", "puissance": 8},
-    {"nom": "Marteau", "puissance": 12},
-    {"nom": "Dague", "puissance": 7}
+    {"name": "Épée", "damage": 10},
+    {"name": "Hache", "damage": 15},
+    {"name": "Arc", "damage": 8},
+    {"name": "Marteau", "damage": 12},
+    {"name": "Dague", "damage": 7}
 ]
 
 monster_attack = {"Orc" : {"name" : "Orc Attack", "damage" : 10},

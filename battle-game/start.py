@@ -67,16 +67,16 @@ class Start:
 
         randomSpell1 = random.randrange(0,len(spell_list))
 
-        weapon1 = Weapon(weapon_list[randomWeapon1]['nom'], weapon_list[randomWeapon1]['puissance'])
+        weapon1 = Weapon(weapon_list[randomWeapon1]['name'], weapon_list[randomWeapon1]['damage'])
 
-        armor1 = Armor(armor_list[randomArmor1]['nom'], armor_list[randomArmor1]['defense'])
+        armor1 = Armor(armor_list[randomArmor1]['name'], armor_list[randomArmor1]['defense'])
 
         spell1  = Spell(spell_list[randomSpell1]['name'], spell_list[randomSpell1]['damage'],spell_list[randomSpell1]['mana'],spell_list[randomSpell1]['type_sort'])
 
-        if(type_list[randomType1]['nom'] != 'Wizard'):
-            player = globals()[type_list[randomType1]['nom']](f"player {player_id}", type_list[randomType1]['hp'], weapon1,armor1)
+        if(type_list[randomType1]['name'] != 'Wizard'):
+            player = globals()[type_list[randomType1]['name']](f"player {player_id}", type_list[randomType1]['hp'], weapon1,armor1)
         else: 
-            player = globals()[type_list[randomType1]['nom']](f"player {player_id}", type_list[randomType1]['hp'], weapon1,armor1,type_list[randomType1]['mana'],spell1, True)
+            player = globals()[type_list[randomType1]['name']](f"player {player_id}", type_list[randomType1]['hp'], weapon1,armor1,type_list[randomType1]['mana'],spell1, True)
 
         return player
     
@@ -95,44 +95,61 @@ class Start:
 
     def createCharacter(self):
         name = input("Votre nom : ")
+
         print("\n-----------------------")
         print("Choisissez une classe :\n")
         i = 1
+        type_option = ["1"]
         for character_class in type_list:
-            print(f" {i} - {character_class['nom']} ")
+            print(f" {i} - {character_class['name']} ")
             i += 1
-        c_type = input("Votre choix : ")
+            type_option.append(str(i))
+        c_type = ""
+        while(c_type not in type_option):
+            c_type = input("Votre choix : ")
 
         print("\n-----------------------")
         print("Choisissez une Arme :\n")
         i = 1
+        weapon_option = ["1"]
         for weapon in weapon_list:
-            print(f" {i} - {weapon['nom']} ")
+            print(f" {i} - {weapon['name']} ")
             i += 1
-        c_weapon = input("Votre choix : ")
+            weapon_option.append(str(i))
+        c_weapon=""
+        while(c_weapon not in weapon_option):
+            c_weapon = input("Votre choix : ")
 
         print("\n-----------------------")
         print("Choisissez une Armure :\n")
         i = 1
+        armor_option = ["1"]
         for armor in armor_list:
-            print(f" {i} - {armor['nom']} ")
+            print(f" {i} - {armor['name']} ")
             i += 1
-        c_armor = input("Votre choix : ")
+            armor_option.append(str(i))
+        c_armor = ""
+        while(c_armor not in armor_option):
+            c_armor = input("Votre choix : ")
 
         if(c_type =="3"):
             print("\n-----------------------")
             print("Choisissez un sort :\n")
             i = 1
+            spell_option = ["1"]
             for spell in spell_list:
                 print(f" {i} - {spell['name']} ")
                 i += 1
-            c_spell = input("Votre choix : ")
+                spell_option.append(str(i))
+            c_spell = ""
+            while(c_spell not in spell_option):
+                c_spell = input("Votre choix : ")
 
 
-        if (type_list[int(c_type) - 1]['nom'] != 'Wizard' ):
-            return globals()[type_list[int(c_type) - 1]['nom']](name, type_list[int(c_type) - 1]['hp'],Weapon(weapon_list[int(c_weapon) -1 ]['nom'],weapon_list[int(c_weapon) -1 ]['puissance']),Armor(armor_list[int(c_armor) - 1]['nom'], armor_list[int(c_armor) - 1]['defense']))
+        if (type_list[int(c_type) - 1]['name'] != 'Wizard' ):
+            return globals()[type_list[int(c_type) - 1]['name']](name, type_list[int(c_type) - 1]['hp'],Weapon(weapon_list[int(c_weapon) -1 ]['name'],weapon_list[int(c_weapon) -1 ]['damage']),Armor(armor_list[int(c_armor) - 1]['name'], armor_list[int(c_armor) - 1]['defense']))
         else:
-            return globals()[type_list[int(c_type) - 1]['nom']](name, type_list[int(c_type) - 1]['hp'],Weapon(weapon_list[int(c_weapon) -1 ]['nom'],weapon_list[int(c_weapon) -1 ]['puissance']),Armor(armor_list[int(c_armor) - 1]['nom'], armor_list[int(c_armor) - 1]['defense']),type_list[int(c_type) -1 ]['mana'],Spell(spell_list[int(c_spell) -1 ]["name"],spell_list[int(c_spell) -1 ]["damage"],spell_list[int(c_spell) -1 ]["mana"],spell_list[int(c_spell) -1 ]["type_sort"]), False )
+            return globals()[type_list[int(c_type) - 1]['name']](name, type_list[int(c_type) - 1]['hp'],Weapon(weapon_list[int(c_weapon) -1 ]['name'],weapon_list[int(c_weapon) -1 ]['damage']),Armor(armor_list[int(c_armor) - 1]['name'], armor_list[int(c_armor) - 1]['defense']),type_list[int(c_type) -1 ]['mana'],Spell(spell_list[int(c_spell) -1 ]["name"],spell_list[int(c_spell) -1 ]["damage"],spell_list[int(c_spell) -1 ]["mana"],spell_list[int(c_spell) -1 ]["type_sort"]), False )
 
     
 

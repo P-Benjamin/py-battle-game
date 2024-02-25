@@ -3,6 +3,7 @@ from characters.character import Character
 from room import Room
 import time
 import os
+import pickle
 class Map:
 
     grid = [[0,0,0,0,0,0,0,0,0,0],
@@ -19,8 +20,22 @@ class Map:
     def __init__(self, player: Character):
         self.player = player
         self.generateMap()
-        self.Rules()
+        self.Menu()
         self.EnterDonjon()
+
+    def Menu(self):
+        os.system('cls')
+        print("Que voulez vous faire ?")
+        print(" 1 - Commencer une nouvelle partie")
+        print(" 2 - Charger une partie")
+        choice = ""
+        while(choice not in ["1","2"]):
+            choice = input("Votre choix : ")
+        if(choice == "1"):
+            self.Rules()
+        if(choice == "2"):
+            self.LoadData()
+
 
     def Rules(self):
         os.system('cls')
@@ -57,7 +72,10 @@ class Map:
             print(" 2 - Allez a droite")
             print(" 3 - Allez en haut")
             print(" 4 - Allez en bas")
-            choice = input()
+            print(" 0 - Sauvegarder")
+            choice=""
+            while(choice not in ["0","1","2","3","4"]):
+                choice = input("Vers où se déplacer : ")
             os.system('cls')
             self.Move(choice)
             self.displayMapWithoutMark()
@@ -74,6 +92,7 @@ class Map:
             case 2 : self.MoveRight()
             case 3 : self.MoveUp()
             case 4 : self.MoveDown()
+            case 0 : self.SaveData()
         
 
     def generateMap(self):
@@ -188,7 +207,25 @@ class Map:
             print("impossible d'aller dans cette direction")
             return False
 
-
+    def SaveData(self):
+        with open('map_save.pickle', 'wb') as file:
+            pickle.dump(self.grid,file)
+        
+        with open('player_save.pickle', 'wb') as file:
+            pickle.dump(self.player,file)
+        
+        with open('playerPos_save.pickle', 'wb') as file:
+            pickle.dump(self.pos_player,file)
+    
+    def LoadData(self):
+        with open('map_save.pickle', 'rb') as file:
+            self.grid = pickle.load(file)
+        
+        with open('player_save.pickle', 'rb') as file:
+            self.player = pickle.load(file)
+        
+        with open('playerPos_save.pickle', 'rb') as file:
+            self.pos_player = pickle.load(file)
 
 if __name__ == "__main__":
     generateNewMap = Map()

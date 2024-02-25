@@ -1,11 +1,11 @@
 armor_list = [
-    {"nom": "Armure légère", "defense": 5},
-    {"nom": "Armure lourde", "defense": 10},
-    {"nom": "Robe magique", "defense": 3},
-    {"nom": "Casque en acier", "defense": 6},
-    {"nom": "Bouclier de bois", "defense": 4}
+    {"name": "Armure légère", "defense": 5},
+    {"name": "Armure lourde", "defense": 10},
+    {"name": "Robe magique", "defense": 3},
+    {"name": "Casque en acier", "defense": 6},
+    {"name": "Bouclier de bois", "defense": 4}
 ]
-monster_armor = {"name" : "skin", "defense" : 2}
+monster_armor = {"name" : "Skin", "defense" : 2}
 class Armor:
 
     def __init__(self,name:str,defense:int):
