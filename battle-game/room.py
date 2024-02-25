@@ -7,7 +7,7 @@ from gears.weapon import monster_attack
 from gears.weapon import Weapon
 from gears.armor import Armor
 from bestiary.monster import Monster
-
+import os
 
 class Room(Arena):
 
@@ -17,14 +17,15 @@ class Room(Arena):
         if(self.type == "Mob"):
             self.mob = self.GenerateMob()
         if(self.type == "Boss"):
-            self.mob = self.GenerateMob()
+            self.mob = self.GenerateBoss()
         Arena.__init__(self,player,self.mob)
         
         
     def fight(self) -> bool:
         winner =  super().fight()
         if(winner == self.player.name):
-            self.player.hp += self.player.hp
+            self.player.hp += self.player.hp *0.6
+            os.system('cls')
             return True
 
     def GenerateMob(self):
@@ -39,6 +40,8 @@ class Room(Arena):
 
         return monster
     
+    def GenerateBoss(self):
+        return Monster("Boss",200,Weapon("Boss Attack",40),Armor("Harderned Skin",15),20)
 
 if __name__ == "__main__":
 

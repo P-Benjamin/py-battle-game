@@ -68,7 +68,7 @@ class Map:
            
         
     def Move(self,direction):
-        self.player.hp -= self.player.hp * 0.02
+        self.player.hp -= self.player.hp * 0.05
         match int(direction):
             case 1 : self.MoveLeft()
             case 2 : self.MoveRight()
@@ -172,17 +172,17 @@ class Map:
     def CheckNewPos(self, x:int, y:int):
         if(self.pos_player['y'] + y <= 5 and self.pos_player['y'] + y >= 0 and self.pos_player['x'] + x <= 9 and self.pos_player['x'] + x >= 0 ):
             if(self.grid[self.pos_player['y'] + y][self.pos_player['x'] + x] == 1):
-                print("Mob in this room")
+                print("Il y a un monstre dans cette pièce")
                 room = Room("Mob",self.player)
                 room.fight()
             elif(self.grid[self.pos_player['y'] + y][self.pos_player['x'] + x] == 5):
-                print("Boss in this room")
+                print("Vous entrez dans la salle du Boss")
                 room = Room("Boss",self.player)
                 win = room.fight()
                 if(win):
                     self.boss_alive = False
             else:
-                print("Nothing in this room")
+                print("Il n'y a rien dans cette pièce")
             return True
         else :
             print("impossible d'aller dans cette direction")
@@ -194,12 +194,12 @@ if __name__ == "__main__":
     generateNewMap = Map()
     print(generateNewMap.pos_player)
     generateNewMap.displayGrid()
-    generateNewMap.deisplayMap()
+    generateNewMap.displayMap()
     generateNewMap.MoveUp()
     generateNewMap.MoveUp()
     generateNewMap.MoveUp()
     generateNewMap.MoveUp()
     generateNewMap.MoveRight()
     generateNewMap.displayGrid()
-    generateNewMap.deisplayMap()
+    generateNewMap.displayMap()
 

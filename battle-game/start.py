@@ -11,6 +11,7 @@ from gears.spell import Spell
 from gears.spell import spell_list
 
 import random
+import os
 
 class Start:
     list_player:Character = []
@@ -46,6 +47,7 @@ class Start:
         print("3 - Joueur contre joueur")
         print("4 - Aventure")
         choice = input("Choix : ")
+        os.system('cls')
         return choice
     
 

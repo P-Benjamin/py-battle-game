@@ -6,10 +6,10 @@ weapon_list = [
     {"nom": "Dague", "puissance": 7}
 ]
 
-monster_attack = {"Orc" : {"name" : "Orc Attack", "damage" : 13},
-                  "Goblin" :{"name" : "Goblin Attack", "damage" : 8},
-                  "Skeleton": {"name" : "Skeleton Attack", "damage" : 6},
-                  "Giant Spider": {"name" : "Spider Attack", "damage" : 10}}
+monster_attack = {"Orc" : {"name" : "Orc Attack", "damage" : 10},
+                  "Goblin" :{"name" : "Goblin Attack", "damage" : 6},
+                  "Skeleton": {"name" : "Skeleton Attack", "damage" : 4},
+                  "Giant Spider": {"name" : "Spider Attack", "damage" : 7}}
 class Weapon:
 
     def __init__(self,name:str,damage:int):

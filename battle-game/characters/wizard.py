@@ -15,7 +15,7 @@ random_attack = { 1 : "weapon", 2 : "spell"}
 class Wizard(Character):
     type = "Wizard"
     def __init__(self,name,hp,weapon:Weapon,armor:Armor,mana:int,spell:Spell, random:bool, defense = type_list[2]['defense']):
-        Character.__init__(self,name,hp,weapon,armor,defense)
+        Character.__init__(self,name,hp,weapon,armor,defense,mana)
         self.mana = mana
         self.spell = spell
         self.random = random
@@ -25,7 +25,9 @@ class Wizard(Character):
            random_choice =  random.randint(1,2)
            choice = random_attack[random_choice]
         else:
-            choice = input("choice ( weapon/spell ) -> ")
+            choice = ""
+            while(choice != "weapon" and choice != "spell"):
+                choice = input("Choix ( weapon/spell ) -> ")
         
         if choice == "weapon":
             super().attack(other)
