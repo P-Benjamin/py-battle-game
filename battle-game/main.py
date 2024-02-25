@@ -11,7 +11,10 @@ if(len(start.list_player) == 2):
     print(f"Le gagnant est {winner}")
 
 else:
-    print("Vous entrez dans un donjon")
-    donjon = Map(start.list_player[0])
+    if(start.loadSave):
+        donjon = Map(start.list_player[0],True)
+    else:
+        donjon = Map(start.list_player[0],False)
+
 
 

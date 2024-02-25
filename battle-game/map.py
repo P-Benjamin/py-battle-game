@@ -17,24 +17,20 @@ class Map:
     
     boss_alive = True
 
-    def __init__(self, player: Character):
+    def __init__(self, player: Character, loadSave:bool):
         self.player = player
+        self.loadSave = loadSave
         self.generateMap()
         self.Menu()
         self.EnterDonjon()
 
     def Menu(self):
         os.system('cls')
-        print("Que voulez vous faire ?")
-        print(" 1 - Commencer une nouvelle partie")
-        print(" 2 - Charger une partie")
-        choice = ""
-        while(choice not in ["1","2"]):
-            choice = input("Votre choix : ")
-        if(choice == "1"):
+        if(not self.loadSave):
             self.Rules()
-        if(choice == "2"):
+        if(self.loadSave):
             self.LoadData()
+            self.Count()
 
 
     def Rules(self):
@@ -45,7 +41,8 @@ class Map:
         print(" - P : Vous représente")
         print(" - X : Représente les salles où un monstre est présent")
         print(" - B : Représente la salle ou le Boss du donjon est situé")
-        print("Votre but, tuer le Boss du donjon")
+        print("Votre but, tuer le Boss du donjon et libérer toutes les salles.")
+        print("Attention chaque pas vous fait perdre de la vie mais vous regagnez de la vie en tuant les monstres")
         input ("Quand vous êtes prêt appuyez sur Entrée")
         self.Count()
     
@@ -60,13 +57,14 @@ class Map:
         print("1")
         time.sleep(1)
         self.displayMap()
-        time.sleep(1)
+        time.sleep(3)
         os.system('cls')
 
 
 
     def EnterDonjon(self):
         while(self.boss_alive and self.player.hp>0):
+            self.displayMapWithoutMark()
             print("Que voulez vous faire ?")
             print(" 1 - Allez a gauche")
             print(" 2 - Allez a droite")
@@ -78,15 +76,22 @@ class Map:
                 choice = input("Vers où se déplacer : ")
             os.system('cls')
             self.Move(choice)
-            self.displayMapWithoutMark()
         if(self.player.hp <= 0):
             print("Vous avez perdu")
         if (not self.boss_alive):
-            print("Vous avez gagné")
+            donjonClear = True
+            for row in self.grid:
+                if 1 in row:
+                    donjonClear = False
+                    break
+            if (donjonClear):
+                print("Bravo vous avez gagné et libéré toutes les salles")
+            else:
+                print("Vous avez  tuez le Boss masis vous avez oublié de libérer certaine salle")
            
         
     def Move(self,direction):
-        self.player.hp -= self.player.hp * 0.05
+        self.player.hp -= self.player.hp * 0.1
         match int(direction):
             case 1 : self.MoveLeft()
             case 2 : self.MoveRight()

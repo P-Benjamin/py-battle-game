@@ -15,6 +15,7 @@ import os
 
 class Start:
     list_player:Character = []
+    loadSave = False
     
     def __init__(self) -> None:
         pass
@@ -32,9 +33,7 @@ class Start:
             self.generatePvpBattle()
         
         if(int(choice) == 4):
-            print("Créez votre personnage")
-            player =  self.createCharacter()
-            self.list_player.append(player)
+            self.loadData()
 
     def Welcome(self):
         print("\n------------------------------")
@@ -46,9 +45,35 @@ class Start:
         print("2 - Bataille contre ordi")
         print("3 - Joueur contre joueur")
         print("4 - Aventure")
-        choice = input("Choix : ")
+        choice = ""
+        while(choice not in ["1","2","3","4"]):
+            choice = input("Choix : ")
         os.system('cls')
         return choice
+    
+    def loadData(self):
+        os.system('cls')
+
+        print("Que voulez vous faire ?")
+        print(" 1 - Commencer une nouvelle partie")
+        print(" 2 - Charger une partie")
+        choice = ""
+        while(choice not in ["1","2"]):
+            choice = input("Votre choix : ")
+        if(choice == "1"):
+            print("Créez votre personnage")
+            player =  self.createCharacter()
+            self.list_player.append(player)
+        if(choice == "2"):
+            if(os.path.exists("map_save.pickle")):
+                player =  self.generateRandomCharacter(1)
+                self.list_player.append(player)
+                self.loadSave = True   
+            else:
+                print("Aucune partie trouvée")
+                print("Créez votre personnage")
+                player = self.createCharacter()
+                self.list_player.append(player)
     
 
     def GenerateRandomBattle(self) -> list:
