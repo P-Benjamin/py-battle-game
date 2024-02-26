@@ -213,23 +213,23 @@ class Map:
             return False
 
     def SaveData(self):
-        with open('map_save.pickle', 'wb') as file:
+        with open('save/map_save.pickle', 'wb') as file:
             pickle.dump(self.grid,file)
         
-        with open('player_save.pickle', 'wb') as file:
+        with open('save/player_save.pickle', 'wb') as file:
             pickle.dump(self.player,file)
         
-        with open('playerPos_save.pickle', 'wb') as file:
+        with open('save/playerPos_save.pickle', 'wb') as file:
             pickle.dump(self.pos_player,file)
     
     def LoadData(self):
-        with open('map_save.pickle', 'rb') as file:
+        with open('save/map_save.pickle', 'rb') as file:
             self.grid = pickle.load(file)
         
-        with open('player_save.pickle', 'rb') as file:
+        with open('save/player_save.pickle', 'rb') as file:
             self.player = pickle.load(file)
         
-        with open('playerPos_save.pickle', 'rb') as file:
+        with open('save/playerPos_save.pickle', 'rb') as file:
             self.pos_player = pickle.load(file)
 
 if __name__ == "__main__":

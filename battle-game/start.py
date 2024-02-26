@@ -65,7 +65,7 @@ class Start:
             player =  self.createCharacter()
             self.list_player.append(player)
         if(choice == "2"):
-            if(os.path.exists("map_save.pickle")):
+            if(os.path.exists("save/map_save.pickle")):
                 player =  self.generateRandomCharacter(1)
                 self.list_player.append(player)
                 self.loadSave = True   
