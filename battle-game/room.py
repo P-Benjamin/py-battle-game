@@ -41,7 +41,7 @@ class Room(Arena):
         return monster
     
     def GenerateBoss(self):
-        return Monster("Boss",200,Weapon("Boss Attack",40),Armor("Harderned Skin",15),20)
+        return Monster("Boss",300,Weapon("Boss Attack",40),Armor("Harderned Skin",15),20)
 
 if __name__ == "__main__":
 
