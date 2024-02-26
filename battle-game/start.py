@@ -107,7 +107,7 @@ class Start:
     
 
     def generate_ordi_battle(self):
-        ordi = self.generateRandomCharacter(1)
+        ordi = self.generate_random_character(1)
         player = self.create_character()
         self.list_player = [ordi, player]
         
@@ -169,7 +169,8 @@ class Start:
             c_spell = ""
             while(c_spell not in spell_option):
                 c_spell = input("Votre choix : ")
-
+        
+        os.system('cls')
 
         if (type_list[int(c_type) - 1]['name'] != 'Wizard' ):
             return globals()[type_list[int(c_type) - 1]['name']](name, type_list[int(c_type) - 1]['hp'],Weapon(weapon_list[int(c_weapon) -1 ]['name'],weapon_list[int(c_weapon) -1 ]['damage']),Armor(armor_list[int(c_armor) - 1]['name'], armor_list[int(c_armor) - 1]['defense']))
