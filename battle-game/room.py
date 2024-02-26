@@ -15,9 +15,9 @@ class Room(Arena):
         self.type=type
         self.player = player
         if(self.type == "Mob"):
-            self.mob = self.GenerateMob()
+            self.mob = self.generate_mob()
         if(self.type == "Boss"):
-            self.mob = self.GenerateBoss()
+            self.mob = self.generate_boss()
         Arena.__init__(self,player,self.mob)
         
         
@@ -28,7 +28,7 @@ class Room(Arena):
             os.system('cls')
             return True
 
-    def GenerateMob(self):
+    def generate_mob(self):
         monsterType =  random.randrange(0,len(monsters_type))
         monster_name = monsters_type[monsterType]["nom"]
 
@@ -40,12 +40,12 @@ class Room(Arena):
 
         return monster
     
-    def GenerateBoss(self):
+    def generate_boss(self):
         return Monster("Boss",300,Weapon("Boss Attack",40),Armor("Harderned Skin",15),20)
 
 if __name__ == "__main__":
 
-    test = Room.GenerateMob(Room)
+    test = Room.generate_mob(Room)
     print(test)
 
        

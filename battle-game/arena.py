@@ -5,7 +5,7 @@ class Arena:
         self.first_character = first_character
         self.second_character = second_character
     
-    def displayResult(self):
+    def display_result(self):
         print("Results: ")
         print(self.first_character.name, self.first_character.hp, "HP")
         print(self.second_character.name, self.second_character.hp, "HP")
@@ -14,16 +14,17 @@ class Arena:
     def fight(self) -> str:
         self.presentation()
         while self.first_character.hp > 0 and self.second_character.hp > 0:
+            print(f"Au tour de {self.first_character.name} d'attaquer")
             self.first_character.attack(self.second_character)
 
-            self.displayResult()
+            self.display_result()
             
             if self.second_character.hp <= 0:
                 break
-            
+            print(f"Au tour de {self.second_character.name} d'attaquer")
             self.second_character.attack(self.first_character)
 
-            self.displayResult()
+            self.display_result()
             
         winner =   self.first_character.name if self.first_character.hp > 0 else self.second_character.name
         return winner

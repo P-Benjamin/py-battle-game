@@ -20,20 +20,20 @@ class Map:
     def __init__(self, player: Character, loadSave:bool):
         self.player = player
         self.loadSave = loadSave
-        self.generateMap()
-        self.Menu()
-        self.EnterDonjon()
+        self.generate_map()
+        self.menu()
+        self.enter_donjon()
 
-    def Menu(self):
+    def menu(self):
         os.system('cls')
         if(not self.loadSave):
-            self.Rules()
+            self.rules()
         if(self.loadSave):
-            self.LoadData()
-            self.Count()
+            self.load_data()
+            self.count()
 
 
-    def Rules(self):
+    def rules(self):
         os.system('cls')
         print("Vous allez entrer dans un donjon.")
         print("Avant de commencer, une carte de ce donjon va s'afficher puis disparaitre rapidement.")
@@ -44,9 +44,9 @@ class Map:
         print("Votre but, tuer le Boss du donjon et libérer toutes les salles.")
         print("Attention chaque pas vous fait perdre de la vie mais vous regagnez de la vie en tuant les monstres")
         input ("Quand vous êtes prêt appuyez sur Entrée")
-        self.Count()
+        self.count()
     
-    def Count(self):
+    def count(self):
         os.system('cls')
         print("Prêt ?")
         print("A la fin du décompte la carte va s'afficher")
@@ -56,15 +56,15 @@ class Map:
         time.sleep(1)
         print("1")
         time.sleep(1)
-        self.displayMap()
+        self.display_map()
         time.sleep(3)
         os.system('cls')
 
 
 
-    def EnterDonjon(self):
+    def enter_donjon(self):
         while(self.boss_alive and self.player.hp>0):
-            self.displayMapWithoutMark()
+            self.display_map_without_mark()
             print("Que voulez vous faire ?")
             print(" 1 - Allez a gauche")
             print(" 2 - Allez a droite")
@@ -75,7 +75,7 @@ class Map:
             while(choice not in ["0","1","2","3","4"]):
                 choice = input("Vers où se déplacer : ")
             os.system('cls')
-            self.Move(choice)
+            self.move(choice)
         if(self.player.hp <= 0):
             print("Vous avez perdu")
         if (not self.boss_alive):
@@ -90,17 +90,17 @@ class Map:
                 print("Vous avez  tuez le Boss masis vous avez oublié de libérer certaine salle")
            
         
-    def Move(self,direction):
+    def move(self,direction):
         self.player.hp -= self.player.hp * 0.1
         match int(direction):
-            case 1 : self.MoveLeft()
-            case 2 : self.MoveRight()
-            case 3 : self.MoveUp()
-            case 4 : self.MoveDown()
-            case 0 : self.SaveData()
+            case 1 : self.move_left()
+            case 2 : self.move_right()
+            case 3 : self.move_up()
+            case 4 : self.move_down()
+            case 0 : self.save_data()
         
 
-    def generateMap(self):
+    def generate_map(self):
         for row in self.grid:
             number = random.randint(1,10)
             for i in range(0,number):
@@ -119,13 +119,13 @@ class Map:
         self.grid[end][9] = 5
         self.pos_player['y'] = start
 
-    def displayGrid(self):
+    def display_grid(self):
         for row in self.grid:
             for r in row:
                 print(r, end="")    
             print()
 
-    def displayMap(self):
+    def display_map(self):
         side = "|---|---|---|---|---|---|---|---|---|---|"
         middle = "|   |   |   |   |   |   |   |   |   |   |"
         newmiddle =""
@@ -148,7 +148,7 @@ class Map:
             print(newmiddle)
             print(side)
 
-    def displayMapWithoutMark(self):
+    def display_map_without_mark(self):
         side = "|---|---|---|---|---|---|---|---|---|---|"
         middle = "|   |   |   |   |   |   |   |   |   |   |"
         newmiddle =""
@@ -166,34 +166,34 @@ class Map:
             print(newmiddle)
             print(side)
 
-    def MoveUp(self):
-        if(self.CheckNewPos(0,-1)):
+    def move_up(self):
+        if(self.check_new_pos(0,-1)):
             self.grid[self.pos_player['y']][self.pos_player['x']] = 0
             self.grid[self.pos_player['y'] -1 ][self.pos_player['x']] = 9
             self.pos_player['y'] -= 1 
     
-    def MoveDown(self):
-        if(self.CheckNewPos(0,1)):
+    def move_down(self):
+        if(self.check_new_pos(0,1)):
             self.grid[self.pos_player['y']][self.pos_player['x']] = 0
             self.grid[self.pos_player['y'] +1 ][self.pos_player['x']] = 9
             self.pos_player['y'] += 1 
 
 
-    def MoveRight(self):
-        if(self.CheckNewPos(1,0)):
+    def move_right(self):
+        if(self.check_new_pos(1,0)):
             self.grid[self.pos_player['y']][self.pos_player['x']] = 0
             self.grid[self.pos_player['y']][self.pos_player['x'] + 1] = 9
             self.pos_player['x'] += 1 
 
 
-    def MoveLeft(self):
-        if(self.CheckNewPos(-1,0)):
+    def move_left(self):
+        if(self.check_new_pos(-1,0)):
             self.grid[self.pos_player['y']][self.pos_player['x']] = 0
             self.grid[self.pos_player['y']][self.pos_player['x'] - 1] = 9
             self.pos_player['x'] -= 1 
 
 
-    def CheckNewPos(self, x:int, y:int):
+    def check_new_pos(self, x:int, y:int):
         if(self.pos_player['y'] + y <= 5 and self.pos_player['y'] + y >= 0 and self.pos_player['x'] + x <= 9 and self.pos_player['x'] + x >= 0 ):
             if(self.grid[self.pos_player['y'] + y][self.pos_player['x'] + x] == 1):
                 print("Il y a un monstre dans cette pièce")
@@ -212,7 +212,7 @@ class Map:
             print("impossible d'aller dans cette direction")
             return False
 
-    def SaveData(self):
+    def save_data(self):
         with open('save/map_save.pickle', 'wb') as file:
             pickle.dump(self.grid,file)
         
@@ -222,7 +222,7 @@ class Map:
         with open('save/playerPos_save.pickle', 'wb') as file:
             pickle.dump(self.pos_player,file)
     
-    def LoadData(self):
+    def load_data(self):
         with open('save/map_save.pickle', 'rb') as file:
             self.grid = pickle.load(file)
         
@@ -235,13 +235,13 @@ class Map:
 if __name__ == "__main__":
     generateNewMap = Map()
     print(generateNewMap.pos_player)
-    generateNewMap.displayGrid()
-    generateNewMap.displayMap()
-    generateNewMap.MoveUp()
-    generateNewMap.MoveUp()
-    generateNewMap.MoveUp()
-    generateNewMap.MoveUp()
-    generateNewMap.MoveRight()
-    generateNewMap.displayGrid()
-    generateNewMap.displayMap()
+    generateNewMap.display_grid()
+    generateNewMap.display_map()
+    generateNewMap.move_up()
+    generateNewMap.move_up()
+    generateNewMap.move_up()
+    generateNewMap.move_up()
+    generateNewMap.move_right()
+    generateNewMap.display_grid()
+    generateNewMap.display_map()
 

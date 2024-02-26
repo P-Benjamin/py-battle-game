@@ -3,7 +3,7 @@ from start import Start
 from map import Map
 
 start= Start()
-start.Menu()
+start.menu()
 if(len(start.list_player) == 2):
     print("La bataille se lance")
     arena = Arena(start.list_player[0],start.list_player[1])

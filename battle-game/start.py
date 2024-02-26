@@ -20,22 +20,22 @@ class Start:
     def __init__(self) -> None:
         pass
 
-    def Menu(self):
-        choice = self.Welcome()
+    def menu(self):
+        choice = self.welcome()
 
         if(int(choice) == 1):
-            self.GenerateRandomBattle()
+            self.generate_random_battle()
         
         if(int(choice) == 2):
-            self.generateOrdiBattle()
+            self.generate_ordi_battle()
         
         if(int(choice) == 3):
-            self.generatePvpBattle()
+            self.generate_pvp_battle()
         
         if(int(choice) == 4):
-            self.loadData()
+            self.load_data()
 
-    def Welcome(self):
+    def welcome(self):
         print("\n------------------------------")
         print("   Bienvenue sur BattleGame   ")
         print("------------------------------\n")
@@ -51,7 +51,7 @@ class Start:
         os.system('cls')
         return choice
     
-    def loadData(self):
+    def load_data(self):
         os.system('cls')
 
         print("Que voulez vous faire ?")
@@ -62,28 +62,28 @@ class Start:
             choice = input("Votre choix : ")
         if(choice == "1"):
             print("Créez votre personnage")
-            player =  self.createCharacter()
+            player =  self.create_character()
             self.list_player.append(player)
         if(choice == "2"):
             if(os.path.exists("save/map_save.pickle")):
-                player =  self.generateRandomCharacter(1)
+                player =  self.generate_random_character(1)
                 self.list_player.append(player)
                 self.loadSave = True   
             else:
                 print("Aucune partie trouvée")
                 print("Créez votre personnage")
-                player = self.createCharacter()
+                player = self.create_character()
                 self.list_player.append(player)
     
 
-    def GenerateRandomBattle(self) -> list:
-        player1 = self.generateRandomCharacter(1)
-        player2 = self.generateRandomCharacter(2)
+    def generate_random_battle(self) -> list:
+        player1 = self.generate_random_character(1)
+        player2 = self.generate_random_character(2)
 
         self.list_player = [player1, player2]
 
 
-    def generateRandomCharacter(self, player_id:int):
+    def generate_random_character(self, player_id:int):
         randomType1 =  random.randrange(0,len(type_list))
 
         randomWeapon1 = random.randrange(0,len(weapon_list))
@@ -106,19 +106,19 @@ class Start:
         return player
     
 
-    def generateOrdiBattle(self):
+    def generate_ordi_battle(self):
         ordi = self.generateRandomCharacter(1)
-        player = self.createCharacter()
+        player = self.create_character()
         self.list_player = [ordi, player]
         
 
-    def generatePvpBattle(self):
-        player1 = self.createCharacter()
-        player2 = self.createCharacter()
+    def generate_pvp_battle(self):
+        player1 = self.create_character()
+        player2 = self.create_character()
         self.list_player = [player1, player2]
 
 
-    def createCharacter(self):
+    def create_character(self):
         name = input("Votre nom : ")
 
         print("\n-----------------------")
