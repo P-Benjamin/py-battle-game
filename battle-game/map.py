@@ -91,7 +91,7 @@ class Map:
            
         
     def move(self,direction):
-        self.player.hp -= self.player.hp * 0.1
+        self.player.hp -= self.player.hp * 0.05
         match int(direction):
             case 1 : self.move_left()
             case 2 : self.move_right()
@@ -101,23 +101,25 @@ class Map:
         
 
     def generate_map(self):
-        for row in self.grid:
-            number = random.randint(1,10)
-            for i in range(0,number):
-                monster = random.randint(0,9)
-                row[monster] = 1
 
         start = random.randint(0,5)
         while self.grid[start][0] == 1:
             start = random.randint(0,5)
         self.grid[start][0] = 9
-        
+        self.pos_player['y'] = start
 
         end = random.randint(0,5)
         while self.grid[end][9] == 1:
             end = random.randint(0,5)
         self.grid[end][9] = 5
-        self.pos_player['y'] = start
+
+        for row in self.grid:
+            number = random.randint(1,10)
+            for i in range(0,number):
+                monster = random.randint(0,9)
+                while(row[monster] == 9 or row[monster] == 5):
+                    monster = random.randint(0,9)
+                row[monster] = 1        
 
     def display_grid(self):
         for row in self.grid:
